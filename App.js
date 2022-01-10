@@ -1,53 +1,32 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout, Text, IconRegistry, Button, Icon } from '@ui-kitten/components';
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import Home from './screens/contrastTimer';
+import ContrastTimer from './screens/contrastTimer';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const pulseIconRef = useRef();
-
-  useEffect(() => {
-    pulseIconRef.current.startAnimation();
-  });
-
   return (
-    <>
+    <NavigationContainer>
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
-        <View style={styles.container}>
-          <Icon
-            name="clock-outline"
-            fill="#8F9BB3"
-            style={styles.icon}
-            ref={pulseIconRef}
-            animation="pulse"
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={Home}
           />
-          <Text> 
-            Cornerman
-          </Text>
-          <Button style={styles.button}>Start</Button>
-          <StatusBar style="auto" />
-        </View>
+          <Stack.Screen
+            name="ContrastTimer"
+            component={ContrastTimer}
+          />
+        </Stack.Navigator>
+        <StatusBar style="auto" />
       </ApplicationProvider>
-    </>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  icon: {
-    width: 32,
-    height: 32,
-    marginBottom: 10
-  },
-  button: {
-    marginTop: 25
-  }
-});
