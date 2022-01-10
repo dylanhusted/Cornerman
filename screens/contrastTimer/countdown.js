@@ -13,11 +13,15 @@ export default function Countdown({ totalTimeS }) {
     }, 1000);
  
     return () => clearTimeout(timeout);
-   }, [currentSeconds]);
+  }, [currentSeconds]);
+
+  useEffect(() => {
+    setCurrentSeconds(totalTimeS);
+  }, [totalTimeS]);
 
   return (
     <Text> 
-        {currentSeconds}
+      {currentSeconds}
     </Text>
   );
 }

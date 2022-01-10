@@ -16,11 +16,12 @@ export default function ContrastTimer({ navigation }) {
     let timeout;
     timeout = setTimeout(() => {
       const nextIndex = currentBlock.index + 1;
-      setCurrentBlock(contrastSchedule[nextIndex]);
+      const nextBlock = contrastSchedule[nextIndex];
+      if (nextBlock) setCurrentBlock(contrastSchedule[nextIndex]);
     }, currentBlock.timeMs);
  
     return () => clearTimeout(timeout);
-   },[]);
+   }, [currentBlock]);
 
   return (
     <View style={styles.container}>
@@ -54,6 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 50
   },
   icon: {
     width: 32,

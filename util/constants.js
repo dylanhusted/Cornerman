@@ -40,5 +40,12 @@ export const contrastSchedule = [
     tempMagnitude: "3",
     expalainerText: "Legends are born when will meets challenge. Time to go as cold as you can take. No holding back. YOU GOT THIS. Seize victory and crank it!!!!!!!",
     timeMs: 60000
+  },
+  {
+    index: 6,
+    generalTemp: "cold",
+    tempMagnitude: "0",
+    expalainerText: "All done. Way to go! For best results, finish here instead of returning to heat.",
+    timeMs: 0
   }
 ]
