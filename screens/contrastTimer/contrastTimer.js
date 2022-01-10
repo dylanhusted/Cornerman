@@ -46,6 +46,11 @@ export default function ContrastTimer({ navigation }) {
         <Countdown totalTimeS={currentBlock.timeMs / 1000} />
       }
       <Text>
+        {Array.from(Array(currentBlock.tempMagnitude)).map(() => {
+          return currentBlock.generalTemp === 'hot' ? '🥵' : '🥶';
+        })}
+      </Text>
+      <Text>
         {currentBlock?.expalainerText || ''}
       </Text>
       <Button
