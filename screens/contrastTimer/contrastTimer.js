@@ -1,14 +1,26 @@
-import React, { useRef, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
+import React, { useRef, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button, Icon } from '@ui-kitten/components';
+import { contrastSchedule } from '../../util/constants';
+import Countdown from './countdown';
 
 export default function ContrastTimer({ navigation }) {
   const pulseIconRef = useRef();
+  const [currentBlock, setCurrentBlock] = useState(contrastSchedule[0]);
 
   useEffect(() => {
     pulseIconRef.current.startAnimation();
   });
+
+  useEffect(() => {
+    let timeout;
+    timeout = setTimeout(() => {
+      const nextIndex = currentBlock.index + 1;
+      setCurrentBlock(contrastSchedule[nextIndex]);
+    }, currentBlock.timeMs);
+ 
+    return () => clearTimeout(timeout);
+   },[]);
 
   return (
     <View style={styles.container}>
@@ -22,7 +34,16 @@ export default function ContrastTimer({ navigation }) {
       <Text> 
         Contrast Timer
       </Text>
-      <Button style={styles.button}>Stop</Button>
+      <Countdown totalTimeS={currentBlock.timeMs / 1000} />
+      <Text>
+        {currentBlock?.expalainerText || ''}
+      </Text>
+      <Button
+        style={styles.button}
+        onPress={() => navigation.navigate('Home')}
+      >
+        Stop
+      </Button>
     </View>
   );
 }

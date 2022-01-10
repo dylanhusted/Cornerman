@@ -5,8 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
-import Home from './screens/contrastTimer';
-import ContrastTimer from './screens/contrastTimer';
+import Home from './screens/home';
+import ContrastTimer from './screens/contrastTimer/contrastTimer';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,10 +19,12 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={Home}
+            options={{ title: 'Welcome' }}
           />
           <Stack.Screen
             name="ContrastTimer"
             component={ContrastTimer}
+            options={{ title: "Let's do this" }}
           />
         </Stack.Navigator>
         <StatusBar style="auto" />

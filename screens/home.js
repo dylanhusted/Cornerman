@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button, Icon } from '@ui-kitten/components';
 
