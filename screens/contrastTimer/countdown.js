@@ -20,7 +20,7 @@ export default function Countdown({ totalTimeS }) {
   }, [totalTimeS]);
 
   return (
-    <Text> 
+    <Text category="h1"> 
       {currentSeconds}
     </Text>
   );

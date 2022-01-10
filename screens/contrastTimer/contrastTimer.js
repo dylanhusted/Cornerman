@@ -5,37 +5,46 @@ import { contrastSchedule } from '../../util/constants';
 import Countdown from './countdown';
 
 export default function ContrastTimer({ navigation }) {
-  const pulseIconRef = useRef();
+  const shakeIconRef = useRef();
   const [currentBlock, setCurrentBlock] = useState(contrastSchedule[0]);
 
   useEffect(() => {
-    pulseIconRef.current.startAnimation();
+    shakeIconRef.current.startAnimation();
   });
 
   useEffect(() => {
     let timeout;
-    timeout = setTimeout(() => {
-      const nextIndex = currentBlock.index + 1;
-      const nextBlock = contrastSchedule[nextIndex];
-      if (nextBlock) setCurrentBlock(contrastSchedule[nextIndex]);
-    }, currentBlock.timeMs);
+    if (currentBlock.timeMs) {
+      timeout = setTimeout(() => {
+        const nextIndex = currentBlock.index + 1;
+        const nextBlock = contrastSchedule[nextIndex];
+        if (nextBlock) setCurrentBlock(contrastSchedule[nextIndex]);
+      }, currentBlock.timeMs);
+    }
  
     return () => clearTimeout(timeout);
    }, [currentBlock]);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: currentBlock.generalTemp === 'hot' ? 'rgba(176, 0, 32, 0.4)' : 'rgba(4, 149, 238, 0.4)'
+      }}
+    >
       <Icon
-        name="clock-outline"
-        fill="#8F9BB3"
+        name={currentBlock.generalTemp === 'hot' ? "thermometer-plus-outline" : "thermometer-minus-outline"}
+        fill="black"
         style={styles.icon}
-        ref={pulseIconRef}
-        animation="pulse"
+        ref={shakeIconRef}
+        animation="shake"
       />
       <Text> 
         Contrast Timer
       </Text>
-      <Countdown totalTimeS={currentBlock.timeMs / 1000} />
+      {currentBlock.timeMs &&
+        <Countdown totalTimeS={currentBlock.timeMs / 1000} />
+      }
       <Text>
         {currentBlock?.expalainerText || ''}
       </Text>

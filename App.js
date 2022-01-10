@@ -19,12 +19,16 @@ export default function App() {
           <Stack.Screen
             name="Home"
             component={Home}
-            options={{ title: 'Welcome' }}
+            options={{
+              headerShown: false
+            }}
           />
           <Stack.Screen
             name="ContrastTimer"
             component={ContrastTimer}
-            options={{ title: "Let's do this" }}
+            options={{
+              headerShown: false
+            }}
           />
         </Stack.Navigator>
         <StatusBar style="auto" />

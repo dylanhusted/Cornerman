@@ -46,6 +46,6 @@ export const contrastSchedule = [
     generalTemp: "cold",
     tempMagnitude: "0",
     expalainerText: "All done. Way to go! For best results, finish here instead of returning to heat.",
-    timeMs: 0
+    timeMs: null
   }
 ]
