@@ -45,7 +45,7 @@ export default function ContrastTimer({ navigation }) {
       {currentBlock.timeMs &&
         <Countdown totalTimeS={currentBlock.timeMs / 1000} />
       }
-      <Text>
+      <Text style={styles.emojis}>
         {Array.from(Array(currentBlock.tempMagnitude)).map(() => {
           return currentBlock.generalTemp === 'hot' ? '🥵' : '🥶';
         })}
@@ -72,9 +72,13 @@ const styles = StyleSheet.create({
     padding: 50
   },
   icon: {
-    width: 32,
-    height: 32,
+    width: 65,
+    height: 65,
     marginBottom: 10
+  },
+  emojis: {
+   fontSize: 65,
+   marginBottom: 20
   },
   button: {
     marginTop: 25

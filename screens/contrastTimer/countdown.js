@@ -20,8 +20,14 @@ export default function Countdown({ totalTimeS }) {
   }, [totalTimeS]);
 
   return (
-    <Text category="h1"> 
+    <Text category="h1" style={styles.text}> 
       {currentSeconds}
     </Text>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 150
+  }
+});
