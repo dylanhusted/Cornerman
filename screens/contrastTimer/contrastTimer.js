@@ -1,16 +1,44 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Button, Icon } from '@ui-kitten/components';
+import { Audio } from 'expo-av';
 import { contrastSchedule } from '../../util/constants';
 import Countdown from './countdown';
 
 export default function ContrastTimer({ navigation }) {
   const shakeIconRef = useRef();
   const [currentBlock, setCurrentBlock] = useState(contrastSchedule[0]);
+  const [alertSound, setAlertSound] = useState(null);
+
+  // Manage alert sounds & annimations
 
   useEffect(() => {
     shakeIconRef.current.startAnimation();
   });
+
+  const playAlertSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(
+      require('../../assets/progression.mp3')
+    );
+    if (sound) {
+      setAlertSound(sound);
+      await sound.playAsync();
+    }
+  }
+
+  useEffect(() => {
+    playAlertSound()
+  }, []);
+
+  useEffect(() => {
+    return alertSound
+      ? () => {
+        alertSound.unloadAsync()
+      }
+      : undefined;
+  }, [alertSound]);
+
+  // Manage time blocks
 
   useEffect(() => {
     let timeout;
@@ -18,7 +46,10 @@ export default function ContrastTimer({ navigation }) {
       timeout = setTimeout(() => {
         const nextIndex = currentBlock.index + 1;
         const nextBlock = contrastSchedule[nextIndex];
-        if (nextBlock) setCurrentBlock(contrastSchedule[nextIndex]);
+        if (nextBlock) {
+          playAlertSound();
+          setCurrentBlock(nextBlock);
+        }
       }, currentBlock.timeMs);
     }
  
